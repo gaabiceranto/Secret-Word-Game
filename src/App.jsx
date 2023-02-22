@@ -27,7 +27,7 @@ function App() {
 
   const [pickedWord, setPickedWord] = useState("")
   const [pickedCategory, setPickedCategory] = useState("")
-  const [letters, setLetter] = useState([])
+  const [letters, setLetters] = useState([])
 
   const [guessedLetters, setGuessedLetters]= useState([])
   const[wrongLetters, setWrongLetters] = useState([])
@@ -58,7 +58,7 @@ function App() {
     //fill states
     setPickedWord(word);
     setPickedCategory(category);
-    setLetter(wordLetters);
+    setLetters(wordLetters);
 
     console.log(pickedWord)
 
@@ -71,9 +71,34 @@ function App() {
 
   }
 
-  const verifyLetter = () => {
-    setGameStage(stages[2].name)
+  const verifyLetter = (letter) => {
+   
+    const normalizedLetter = letter.toLowerCase()
+
+    // check if letter has already been utilized
+
+    if(
+      guessedLetters.includes(normalizedLetter) ||
+      wrongLetters.includes(normalizedLetter)
+    ){
+      return;
+    }
+
+    // push guesses letter or remove a guess
+    if(letters.includes(normalizedLetter)){
+      setGuessedLetters((actualGuessedLetters) => [
+        ...actualGuessedLetters,
+        normalizedLetter
+      ]) } else{
+        setWrongLetters((actualWrongLetters) => [
+          ...actualWrongLetters,
+          normalizedLetter,
+      ])}
+    
   }
+
+  console.log(guessedLetters)
+  console.log("worng", wrongLetters)
 
   const retry = () => {
     setGameStage(stages[0].name)
@@ -87,7 +112,7 @@ function App() {
           verifyLetter={verifyLetter} 
           pickedWord={pickedWord} 
           pickedCategory={pickedCategory}
-          letter={letters}
+          letters={letters}
           guessedLetters ={guessedLetters}
           wrongLetters = {wrongLetters}
           guesses = {guesses}

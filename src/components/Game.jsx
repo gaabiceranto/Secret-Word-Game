@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import "./game.css"
 
-export default function Game({verifyLetter, pickedWord, pickedCategory, letter, guessedLetters, wrongLetters, guesses, score}) {
+export default function Game({verifyLetter, pickedWord, pickedCategory,letters, guessedLetters, wrongLetters, guesses, score}) {
+  const [letter,setLetter] = useState("")
+  const letterInputRef = useRef(null)
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    verifyLetter(letter)
+
+    setLetter("");
+
+    letterInputRef.current.focus();
+  }
+  
   return (
     <>
-        <div>Game</div>
+        <div>Secret Word</div>
         <p>
           <span>Pontação: {score}</span>
         </p>
@@ -14,7 +27,7 @@ export default function Game({verifyLetter, pickedWord, pickedCategory, letter, 
         </h3>
         <p>Você ainda tem {guesses} tentantivas(s).</p>
         <div className='wordContainer'>
-          {letter.map((letter,i)=> 
+          {letters.map((letter,i)=> 
           guessedLetters.includes(letter) ? (
             <span key ={i} className="letter"> {letter}</span>
           ) : (
@@ -24,8 +37,9 @@ export default function Game({verifyLetter, pickedWord, pickedCategory, letter, 
         </div>
         <div>
           <p>Tente Adivinhar uma letra da palavra:</p>
-          <form>
-            <input type="text" name="letter" maxLength="1" required/>
+          <form onSubmit={handleSubmit}>
+            <input type="text" name="letter" maxLength="1" required onChange={(e) => setLetter(e.target.value)} value={letter} ref={letterInputRef}/>
+            <button>Jogar</button>
           </form>
         </div>
         <div className="wrongLettersContainer">
@@ -34,7 +48,7 @@ export default function Game({verifyLetter, pickedWord, pickedCategory, letter, 
             <span key={i}>{letter}, </span>
           ))}
         </div>
-        <button onClick={verifyLetter}>Finalzia jogo</button>
+        {/* <button onClick={verifyLetter}>Finalzia jogo</button> */}
     </>
   )
 }
