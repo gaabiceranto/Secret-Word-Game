@@ -30,8 +30,9 @@ export default function Game({verifyLetter, pickedWord, pickedCategory, letter, 
         </div>
         <div className="wrongLettersContainer">
           <p>Letras já utilizadas:</p>
-          <span>a,</span>
-          <span>b,</span>
+          {wrongLetters.map((letter,i) =>(
+            <span key={i}>{letter}, </span>
+          ))}
         </div>
         <button onClick={verifyLetter}>Finalzia jogo</button>
     </>
