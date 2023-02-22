@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+
+.blanckSquare {
+  font-size: 70px;
+  background-color: white;
+  height: 100px;
+  width: 100px;
+}

@@ -67,3 +67,10 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.blanckSquare {
+  font-size: 70px;
+  background-color: white;
+  height: 100px;
+  width: 100px;
+}
