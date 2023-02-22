@@ -1,20 +1,26 @@
 import React from 'react'
 import "./game.css"
 
-export default function Game({verifyLetter}) {
+export default function Game({verifyLetter, pickedWord, pickedCategory, letter, guessedLetters, wrongLetters, guesses, score}) {
   return (
     <>
         <div>Game</div>
         <p>
-          <span>Pontação: 000</span>
+          <span>Pontação: {score}</span>
         </p>
         <h1>Adivinhe a palavra:</h1>
         <h3>
-          Dica sobre a palavra: <span>Dica...</span>
+          Dica sobre a palavra: <span>{pickedCategory}</span>
         </h3>
+        <p>Você ainda tem {guesses} tentantivas(s).</p>
         <div className='wordContainer'>
-          <span className='letter'>A</span>
-          <span className='blankSquare'></span>
+          {letter.map((letter,i)=> 
+          guessedLetters.includes(letter) ? (
+            <span key ={i} className="letter"> {letter}</span>
+          ) : (
+            <span key ={i} className="blankSquare"></span>
+            )
+          )}
         </div>
         <div>
           <p>Tente Adivinhar uma letra da palavra:</p>
